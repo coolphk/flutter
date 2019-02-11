@@ -24,6 +24,25 @@ class Conversation {
         assert(title != null),
         assert(updateAt != null);
 
+  Image getAvatar(double width, {double height}) {
+    Image image = Image.asset(
+      'assets/images/default_nor_avatar.png',
+      width: width,
+    );
+    if (this.avatar.indexOf("https") == -1) {
+      image = Image.asset(
+        this.avatar,
+        width: width,
+      );
+    } else {
+      image = Image.network(
+        this.avatar,
+        width: width,
+      );
+    }
+    return image;
+  }
+
   static const List<Conversation> mockConversations = [
     const Conversation(
       avatar: 'assets/images/ic_file_transfer.png',

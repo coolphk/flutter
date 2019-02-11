@@ -90,6 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
       onTap: (int index) {
         setState(() {
           _currentIndex = index;
+          //定义页面切换时的滚动动画
           _pageController.animateToPage(_currentIndex,
               duration: Duration(milliseconds: 200), curve: Curves.linear);
         });

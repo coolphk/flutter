@@ -9,6 +9,21 @@ class _ConversationItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Widget avatar = conversation.getAvatar(Constants.ContactAvatarSize);
+
+    //未读消息角标
+    Container unreadMsgCountText = Container(
+      width: Constants.UnReadMsgNotifyDotSize,
+      decoration: BoxDecoration(
+          borderRadius:
+              BorderRadius.circular(Constants.UnReadMsgNotifyDotSize / 2)),
+//      color: Color(AppColors.NotifyDotBg),
+      child: Text(
+        '99',
+        style: AppStyles.UnreadMsgCountDotStyle,
+      ),
+    );
+
     // TODO: implement build
     return Container(
       padding: EdgeInsets.all(10.0),
@@ -20,10 +35,7 @@ class _ConversationItem extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Image.asset(
-            conversation.avatar,
-            width: Constants.ConversationAvatarSize,
-          ),
+          avatar,
           Expanded(
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 10.0),
