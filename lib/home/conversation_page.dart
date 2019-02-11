@@ -9,20 +9,66 @@ class _ConversationItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Widget avatarContainer;
     Widget avatar = conversation.getAvatar(Constants.ContactAvatarSize);
 
     //未读消息角标
-    Container unreadMsgCountText = Container(
-      width: Constants.UnReadMsgNotifyDotSize,
-      decoration: BoxDecoration(
+    if (conversation.unreadMsgCount > 0) {
+      Container unreadMsgCountText = Container(
+        width: Constants.UnReadMsgNotifyDotSize,
+        decoration: BoxDecoration(
           borderRadius:
-              BorderRadius.circular(Constants.UnReadMsgNotifyDotSize / 2)),
-//      color: Color(AppColors.NotifyDotBg),
-      child: Text(
-        '99',
-        style: AppStyles.UnreadMsgCountDotStyle,
+              BorderRadius.circular(Constants.UnReadMsgNotifyDotSize / 2),
+          color: Color(AppColors.NotifyDotBg),
+        ),
+        child: Center(
+            child: Text(
+          conversation.unreadMsgCount.toString(),
+          style: AppStyles.UnreadMsgCountDotStyle,
+        )),
+      );
+
+      avatarContainer = Stack(
+        overflow: Overflow.visible,
+        children: <Widget>[
+          avatar,
+          Positioned(
+            right: -6.0,
+            top: -6.0,
+            child: unreadMsgCountText,
+          )
+        ],
+      );
+    } else {
+      avatarContainer = avatar;
+    }
+
+    //勿扰图标
+    /* Widget muteIcon = Icon(
+      IconData(0xe755, fontFamily: Constants.IconFontFamily),
+      size: Constants.ConversationMuteIconSize,
+      color: Color(AppColors.ConversationMuteIcon),
+    );*/
+
+    Widget _muteIcon(Color color) {
+      return Icon(IconData(0xe755, fontFamily: Constants.IconFontFamily),
+          size: Constants.ConversationMuteIconSize, color: color);
+    }
+
+    List<Widget> _rightArea = [
+      Text(
+        conversation.updateAt,
+        style: AppStyles.TitleStyle,
       ),
-    );
+      SizedBox(
+        height: 10.0,
+      )
+    ];
+    if (conversation.isMute) {
+      _rightArea.add(_muteIcon(Color(AppColors.ConversationMuteIcon)));
+    } else {
+      _rightArea.add(_muteIcon(Colors.transparent));
+    }
 
     // TODO: implement build
     return Container(
@@ -35,7 +81,7 @@ class _ConversationItem extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          avatar,
+          avatarContainer,
           Expanded(
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 10.0),
@@ -54,12 +100,7 @@ class _ConversationItem extends StatelessWidget {
               ),
             ),
           ),
-          Column(children: <Widget>[
-            Text(
-              conversation.updateAt,
-              style: AppStyles.TitleStyle,
-            )
-          ])
+          Column(children: _rightArea)
         ],
       ),
     );
