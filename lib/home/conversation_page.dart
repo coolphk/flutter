@@ -44,12 +44,6 @@ class _ConversationItem extends StatelessWidget {
     }
 
     //勿扰图标
-    /* Widget muteIcon = Icon(
-      IconData(0xe755, fontFamily: Constants.IconFontFamily),
-      size: Constants.ConversationMuteIconSize,
-      color: Color(AppColors.ConversationMuteIcon),
-    );*/
-
     Widget _muteIcon(Color color) {
       return Icon(IconData(0xe755, fontFamily: Constants.IconFontFamily),
           size: Constants.ConversationMuteIconSize, color: color);
@@ -64,6 +58,7 @@ class _ConversationItem extends StatelessWidget {
         height: 10.0,
       )
     ];
+
     if (conversation.isMute) {
       _rightArea.add(_muteIcon(Color(AppColors.ConversationMuteIcon)));
     } else {
@@ -107,6 +102,48 @@ class _ConversationItem extends StatelessWidget {
   }
 }
 
+class _DeviceInfoItem extends StatelessWidget {
+  final device;
+
+  const _DeviceInfoItem({this.device: Device.WIN}) : assert(device != null);
+
+  int get iconName {
+    return device == Device.WIN ? 0xe75e : 0xe640;
+  }
+
+  String get deviceName {
+    return device == Device.WIN ? 'Windows' : 'MAC';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+      decoration: BoxDecoration(
+          border: Border(
+              bottom: BorderSide(
+                  color: Color(AppColors.DividerColor),
+                  width: Constants.DividerWidth))),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Icon(
+            IconData(this.iconName, fontFamily: Constants.IconFontFamily),
+            color: Color(AppColors.DeviceInfoItemIcon),
+          ),
+          SizedBox(
+            width: 16.0,
+          ),
+          Text(
+            '${this.deviceName}微信已登录，手机通知已关闭',
+            style: AppStyles.DeviceInfoItemTextStyle,
+          )
+        ],
+      ),
+    );
+  }
+}
+
 class ConversationPage extends StatefulWidget {
   _ConversationPageState createState() => _ConversationPageState();
 }
@@ -116,6 +153,9 @@ class _ConversationPageState extends State<ConversationPage> {
   Widget build(BuildContext context) {
     return ListView.builder(
       itemBuilder: (BuildContext context, int index) {
+        if (index == 0) {
+          return _DeviceInfoItem(device: Device.MAC);
+        }
         return _ConversationItem(
           conversation: Conversation.mockConversations[index],
         );

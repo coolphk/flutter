@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:we_chat/app_config.dart';
 
+enum Device { MAC, WIN }
+
 class Conversation {
   final String avatar;
   final String title;
