@@ -149,18 +149,22 @@ class ConversationPage extends StatefulWidget {
 }
 
 class _ConversationPageState extends State<ConversationPage> {
+  final ConversationPageData data = ConversationPageData.mock();
   @override
   Widget build(BuildContext context) {
+  List<Conversation> mockConversations = data.conversations;
     return ListView.builder(
       itemBuilder: (BuildContext context, int index) {
         if (index == 0) {
-          return _DeviceInfoItem(device: Device.MAC);
+          return _DeviceInfoItem(device: data.device);
         }
         return _ConversationItem(
-          conversation: Conversation.mockConversations[index],
+          conversation: mockConversations[index - 1],
         );
       },
-      itemCount: Conversation.mockConversations.length,
+      itemCount: data.device != null
+          ? mockConversations.length + 1
+          : mockConversations.length,
     );
   }
 }

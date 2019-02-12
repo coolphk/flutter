@@ -44,6 +44,17 @@ class Conversation {
     }
     return image;
   }
+}
+
+class ConversationPageData {
+  final Device device;
+  final List<Conversation> conversations;
+
+  const ConversationPageData(this.device, this.conversations);
+
+  static mock() {
+    return ConversationPageData(Device.WIN, mockConversations);
+  }
 
   static const List<Conversation> mockConversations = [
     const Conversation(

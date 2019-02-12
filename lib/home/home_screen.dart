@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'navigation_icon_view.dart';
 import '../app_config.dart' show Constants, AppColors;
 import 'conversation_page.dart';
+import 'contact_page.dart';
 
 enum ActionItems {
   GROUP_CHAT,
@@ -68,9 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
     ];
     _pages = [
       ConversationPage(),
-      Container(
-        color: Colors.yellow,
-      ),
+      ContactsPage(),
       Container(
         color: Colors.blue,
       ),
