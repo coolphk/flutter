@@ -24,7 +24,7 @@ class ContactsPage extends StatefulWidget {
 }
 
 class _ContactsPageState extends State<ContactsPage> {
-  final List<Contact> _contacts = ContactPageData.mock().contacts;
+  final List<Contact> _contacts = ContactsPageData.mock().contacts;
 
   @override
   Widget build(BuildContext context) {
