@@ -47,10 +47,8 @@ class AppStyles {
     color: Color(AppColors.ContactGroupTitleText),
   );
 
-  static const IndexLetterBoxTextStyle = TextStyle(
-    fontSize: 64.0,
-    color: Colors.white
-  );
+  static const IndexLetterBoxTextStyle =
+      TextStyle(fontSize: 64.0, color: Colors.white);
 }
 
 class Constants {

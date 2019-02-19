@@ -12,26 +12,31 @@ class _ContactItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Row(
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.all(10.0),
-            child: Image.network(
-              avatar,
-              width: 80.0,
-            ),
+        padding: EdgeInsets.symmetric(horizontal: 13.0),
+        child: Container(
+          decoration: BoxDecoration(
+              border: Border(
+                  bottom: BorderSide(
+                      color: Color(AppColors.DividerColor),
+                      width: Constants.DividerWidth))),
+          padding: EdgeInsets.symmetric(vertical: 12.0),
+          child: Row(
+            children: <Widget>[
+              Container(
+                child: Image.network(
+                  avatar,
+                  width: Constants.ContactAvatarSize,
+                ),
+              ),
+              SizedBox(
+                width: 10.0,
+              ),
+              Container(
+                child: Text(title),
+              )
+            ],
           ),
-          Container(
-            decoration: BoxDecoration(
-                border: Border(
-                    bottom: BorderSide(
-                        color: Color(AppColors.DividerColor),
-                        width: Constants.DividerWidth))),
-            child: Text(title),
-          )
-        ],
-      ),
-    );
+        ));
   }
 }
 
@@ -47,9 +52,10 @@ class _ContactsPageState extends State<ContactsPage> {
   Widget build(BuildContext context) {
     return ListView.builder(
       itemBuilder: (BuildContext context, int index) {
+        var contact = _contacts[index];
         return _ContactItem(
-          avatar: _contacts[index].avatar,
-          title: _contacts[index].name,
+          avatar: contact.avatar,
+          title: contact.name,
         );
       },
       itemCount: _contacts.length,

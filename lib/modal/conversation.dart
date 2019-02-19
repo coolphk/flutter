@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:we_chat/app_config.dart';
+import 'package:we_chat/utils/tools.dart';
 
 enum Device { MAC, WIN }
 
@@ -27,22 +28,7 @@ class Conversation {
         assert(updateAt != null);
 
   Image getAvatar(double width, {double height}) {
-    Image image = Image.asset(
-      'assets/images/default_nor_avatar.png',
-      width: width,
-    );
-    if (this.avatar.indexOf("https") == -1) {
-      image = Image.asset(
-        this.avatar,
-        width: width,
-      );
-    } else {
-      image = Image.network(
-        this.avatar,
-        width: width,
-      );
-    }
-    return image;
+    return Tools.getAvatar(this.avatar, width);
   }
 }
 
