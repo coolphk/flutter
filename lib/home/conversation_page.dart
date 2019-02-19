@@ -68,6 +68,7 @@ class _ConversationItem extends StatelessWidget {
     // TODO: implement build
     return Container(
       padding: EdgeInsets.all(10.0),
+      //item边框（下划线）
       decoration: BoxDecoration(
           border: Border(
               bottom: BorderSide(
