@@ -19,6 +19,7 @@ class _ContactItem extends StatelessWidget {
   Widget build(BuildContext context) {
     //列表项主体部分
     Widget _button = Container(
+      margin: EdgeInsets.symmetric(horizontal: 8.0),
       decoration: BoxDecoration(
           border: Border(
               bottom: BorderSide(
@@ -107,22 +108,29 @@ class _ContactsPageState extends State<ContactsPage> {
       ..addAll(data.contacts)
       ..addAll(data.contacts)
       ..addAll(data.contacts)
-      ..sort((a, b) => a.name.compareTo(b.name));
+      ..sort((a, b) => a.nameIndex.compareTo(b.nameIndex));
     print(_contacts);
   }
 
   @override
   Widget build(BuildContext context) {
+    Contact _contact;
     return ListView.builder(
       itemBuilder: (BuildContext context, int index) {
         if (index < _functionButtons.length) {
           return _functionButtons[index];
         } else {
-          var contact = _contacts[index - _functionButtons.length];
+          int _contactIndex = index - _functionButtons.length;
+          _contact = _contacts[_contactIndex];
+          bool _isGroupTitle = true;
+          if (_contactIndex > 0 &&
+              _contact.nameIndex == _contacts[_contactIndex - 1].nameIndex) {
+            _isGroupTitle = false;
+          }
           return _ContactItem(
-            avatar: contact.avatar,
-            title: contact.name,
-            groupTitle: contact.nameIndex,
+            avatar: _contact.avatar,
+            title: _contact.name,
+            groupTitle: _isGroupTitle ? _contact.nameIndex : null,
           );
         }
       },
