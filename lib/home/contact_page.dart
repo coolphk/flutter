@@ -67,6 +67,37 @@ class _ContactItem extends StatelessWidget {
   }
 }
 
+const INDEX_BAR_WORDS = [
+  "↑",
+  "☆",
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "O",
+  "P",
+  "Q",
+  "R",
+  "S",
+  "T",
+  "U",
+  "V",
+  "W",
+  "X",
+  "Y",
+  "Z"
+];
+
 class ContactsPage extends StatefulWidget {
   @override
   _ContactsPageState createState() => _ContactsPageState();
@@ -115,26 +146,40 @@ class _ContactsPageState extends State<ContactsPage> {
   @override
   Widget build(BuildContext context) {
     Contact _contact;
-    return ListView.builder(
-      itemBuilder: (BuildContext context, int index) {
-        if (index < _functionButtons.length) {
-          return _functionButtons[index];
-        } else {
-          int _contactIndex = index - _functionButtons.length;
-          _contact = _contacts[_contactIndex];
-          bool _isGroupTitle = true;
-          if (_contactIndex > 0 &&
-              _contact.nameIndex == _contacts[_contactIndex - 1].nameIndex) {
-            _isGroupTitle = false;
-          }
-          return _ContactItem(
-            avatar: _contact.avatar,
-            title: _contact.name,
-            groupTitle: _isGroupTitle ? _contact.nameIndex : null,
-          );
-        }
-      },
-      itemCount: _contacts.length + _functionButtons.length,
+    return Stack(
+      children: <Widget>[
+        ListView.builder(
+          itemBuilder: (BuildContext context, int index) {
+            if (index < _functionButtons.length) {
+              return _functionButtons[index];
+            } else {
+              int _contactIndex = index - _functionButtons.length;
+              _contact = _contacts[_contactIndex];
+              bool _isGroupTitle = true;
+              if (_contactIndex > 0 &&
+                  _contact.nameIndex ==
+                      _contacts[_contactIndex - 1].nameIndex) {
+                _isGroupTitle = false;
+              }
+              return _ContactItem(
+                avatar: _contact.avatar,
+                title: _contact.name,
+                groupTitle: _isGroupTitle ? _contact.nameIndex : null,
+              );
+            }
+          },
+          itemCount: _contacts.length + _functionButtons.length,
+        ),
+        Positioned(
+            width: Constants.IndexBarWidth,
+            right: 0,
+            top: 0,
+            bottom: 0,
+            child: ListView.builder(
+                itemBuilder: (BuildContext context, int index) {
+
+                }))
+      ],
     );
   }
 }
