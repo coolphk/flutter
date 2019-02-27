@@ -67,6 +67,14 @@ class _ContactItem extends StatelessWidget {
   }
 }
 
+const INDEX_BAR_WORDS = [
+  "↑", "☆",
+  "A", "B", "C", "D", "E", "F", "G",
+  "H", "I", "J", "K", "L", "M", "N",
+  "O", "P", "Q", "R", "S", "T", "U",
+  "V", "W", "X", "Y", "Z"
+];
+
 class ContactsPage extends StatefulWidget {
   @override
   _ContactsPageState createState() => _ContactsPageState();
